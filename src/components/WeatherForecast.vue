@@ -10,11 +10,15 @@
         </b-input-group>
       </b-col>
     </b-row>
-    
-    <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-      City not found!
-    </b-alert>
-      
+
+    <b-row align-h="center">
+      <b-col lg="4">
+        <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+          City not found!
+        </b-alert>
+      </b-col>
+    </b-row>
+
     <weather-card :info="info" @cityDetails="getCityDetails" />
     <city-details :details="cityDetails" />
 
@@ -34,7 +38,7 @@ export default {
     WeatherCard,
     CityDetails
   },
-  data () {
+  data() {
     return {
       info: null,
       text: null,
@@ -44,7 +48,7 @@ export default {
     }
   },
   methods: {
-    search () {
+    search() {
       this.showLoader = true
       this.cityDetails = null
       axios
@@ -66,7 +70,7 @@ export default {
           this.showLoader = false
         })
     },
-    getCityDetails (value) {
+    getCityDetails(value) {
       this.showLoader = true
       axios
         .get('https://api.openweathermap.org/data/2.5/forecast', {
@@ -86,7 +90,7 @@ export default {
 </script>
 
 <style>
-.pointer{
+.pointer {
   cursor: pointer;
 }
 </style>
