@@ -16,7 +16,7 @@
     </b-alert>
       
     <weather-card :info="info" @cityDetails="getCityDetails" />
-    <city-details v-if="cityDetails" :details="cityDetails" />
+    <city-details :details="cityDetails" />
 
   </b-container>
 </template>
