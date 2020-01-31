@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: [
     'info'
@@ -38,6 +39,9 @@ export default {
     },
     getWeatherIconUrl(value) {
       return `http://openweathermap.org/img/w/${value}.png`
+    },
+    timeFormat (value) {
+      return moment(value*1000).format('HH:mm')
     }
   }
 }
