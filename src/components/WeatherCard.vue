@@ -1,27 +1,26 @@
 <template>
   <b-row v-if="info" align-h="center">
-    <b-col cols="4">
+    <b-col lg="6">
       <b-card
         tag="article"
-        style="max-width: 30rem;"
         class="mb-2"
-        @click="$emit('cityDetails', info.id)"
       >
         <b-card-title>
-          {{(info||{}).name}}, {{((info||{}).sys||{}).country}} 
+          <img alt="Flag" :src="getWeatherIconUrl(info.weather[0].icon)">
+          <span id="city" class="pointer" @click="$emit('cityDetails', info.id)">{{(info||{}).name}}, {{((info||{}).sys||{}).country}} </span>
+          <b-tooltip target="city">Click for extended forecast</b-tooltip>
           <img alt="Flag" :src="getImageUrl(info.sys.country)">
           {{((info||{}).weather||{})[0].description}}
         </b-card-title>
         <b-card-text>
-          <b-badge variant="info">{{`${((info||{}).main||{}).temp} &#176;C`}}</b-badge>
+          <b-badge id="temperature" variant="info">{{`${((info||{}).main||{}).temp} &#176;C`}}</b-badge>
+          <b-tooltip target="temperature">Feels like: {{((info||{}).main||{}).feels_like}}</b-tooltip>
           {{`temperature from ${((info||{}).main||{}).temp_min} to ${((info||{}).main||{}).temp_max} &#176;C, 
           wind ${((info||{}).wind||{}).speed} m/s. clouds ${((info||{}).clouds||{}).all} %`}}
           <br>
           Geo coords {{`[${((info||{}).coord||{}).lon}, ${((info||{}).coord||{}).lat}]`}}
         </b-card-text>
       </b-card>
-      <b-button variant="info" @click="$emit('cityDetails', info.id)">5 day / 3 hour weather forecast
-</b-button>
     </b-col>
   </b-row>
 </template>
@@ -34,6 +33,9 @@ export default {
   methods: {
     getImageUrl(value) {
       return `http://openweathermap.org/images/flags/${value.toLowerCase()}.png`
+    },
+    getWeatherIconUrl(value) {
+      return `http://openweathermap.org/img/w/${value}.png`
     }
   }
 }
