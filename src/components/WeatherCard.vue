@@ -18,6 +18,8 @@
           {{`temperature from ${info.main.temp_min} to ${info.main.temp_max} &#176;C, 
           wind ${info.wind.speed} m/s. clouds ${info.clouds.all} %`}}
           <br>
+          Sunrise: {{timeFormat(info.sys.sunrise)}} Sunset: {{timeFormat(info.sys.sunset)}}
+          <br>
           Geo coords {{`[${info.coord.lon}, ${info.coord.lat}]`}}
         </b-card-text>
       </b-card>
