@@ -4,7 +4,7 @@
       <b-card tag="article" class="mb-2">
         <b-card-title>
           <img alt="Flag" :src="getWeatherIconUrl(info.weather[0].icon)">
-          <b-button variant="outline-secondary" id="city" class="pointer" @click="$emit('cityDetails', info.id)">
+          <b-button variant="outline-secondary" id="city" class="pointer" size="sm" @click="$emit('cityDetails', info.id)">
             {{info.name}}, {{info.sys.country}}
           </b-button>
           <b-tooltip target="city">
