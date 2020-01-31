@@ -7,14 +7,17 @@
       >
         <b-card-title>
           <img alt="Flag" :src="getWeatherIconUrl(info.weather[0].icon)">
-          <span id="city" class="pointer" @click="$emit('cityDetails', info.id)">{{info.name}}, {{info.sys.country}} </span>
+          <b-badge variant="light" id="city" class="pointer" @click="$emit('cityDetails', info.id)">
+            {{info.name}}, {{info.sys.country}}
+          </b-badge>
+          
           <b-tooltip target="city">Click for extended forecast</b-tooltip>
           <img alt="Flag" :src="getImageUrl(info.sys.country)">
           {{info.weather[0].description}}
         </b-card-title>
         <b-card-text>
-          <b-badge id="temperature" variant="info">{{`${info.main.temp} &#176;C`}}</b-badge>
-          <b-tooltip target="temperature">Feels like: {{info.main.feels_like}}</b-tooltip>
+          <b-badge id="temperature" variant="info">{{`${temperatureRound(info.main.temp)} &#176;C`}}</b-badge>
+          <b-tooltip target="temperature">Feels like: {{temperatureRound(info.main.feels_like)}}</b-tooltip>
           {{`temperature from ${info.main.temp_min} to ${info.main.temp_max} &#176;C, 
           wind ${info.wind.speed} m/s. clouds ${info.clouds.all} %`}}
           <br>
@@ -42,6 +45,9 @@ export default {
     },
     timeFormat (value) {
       return moment(value*1000).format('HH:mm')
+    },
+    temperatureRound (value) {
+      return Math.round((value * 10) / 10).toFixed(1)
     }
   }
 }
