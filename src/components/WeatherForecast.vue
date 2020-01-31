@@ -18,6 +18,10 @@
     <weather-card :info="info" @cityDetails="getCityDetails" />
     <city-details :details="cityDetails" />
 
+    <div v-if="showLoader" class="d-flex justify-content-center mb-3">
+      <b-spinner label="Loading..."></b-spinner>
+    </div>
+
   </b-container>
 </template>
 
@@ -35,11 +39,13 @@ export default {
       info: null,
       text: null,
       showDismissibleAlert: false,
-      cityDetails: null
+      cityDetails: null,
+      showLoader: false
     }
   },
   methods: {
     search () {
+      this.showLoader = true
       this.cityDetails = null
       axios
         .get('https://api.openweathermap.org/data/2.5/weather', {
@@ -52,13 +58,16 @@ export default {
         .then(response => {
           this.showDismissibleAlert = false
           if (response) (this.info = response.data)
+          this.showLoader = false
         })
         .catch(() => {
           this.info = null
           this.showDismissibleAlert = true
+          this.showLoader = false
         })
     },
     getCityDetails (value) {
+      this.showLoader = true
       axios
         .get('https://api.openweathermap.org/data/2.5/forecast', {
           params: {
@@ -69,6 +78,7 @@ export default {
         })
         .then(response => {
           if (response) (this.cityDetails = response.data)
+          this.showLoader = false
         })
     }
   }
@@ -80,3 +90,4 @@ export default {
   cursor: pointer;
 }
 </style>
+
