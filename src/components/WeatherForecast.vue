@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <h4>Weather Forecast</h4>
     <b-row align-h="center">
       <b-col lg="4">
         <b-input-group>
