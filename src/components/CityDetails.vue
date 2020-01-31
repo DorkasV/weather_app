@@ -16,7 +16,7 @@
                 <b-col cols="9">
                   <b-row>
                     <b-col cols="2">
-                      <b-badge :variant="temperature(item.main.temp)">{{Math.round(item.main.temp)}} &#176;C</b-badge>
+                      <b-badge :variant="temperature(item.main.temp)">{{Math.round(item.main.temp)}} °C</b-badge>
                     </b-col>
                     <b-col cols="10">
                       {{item.weather[0].description}}

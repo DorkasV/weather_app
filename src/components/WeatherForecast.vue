@@ -20,12 +20,14 @@
       </b-col>
     </b-row>
 
-    <weather-card :info="info" @cityDetails="getCityDetails" />
-    <city-details :details="cityDetails" />
+    <weather-card :info="info" @cityDetails="getCityDetails" @showChart="getTemperatureChart" />
+    <city-details v-if="showTemperature" :details="cityDetails" />
 
     <div v-if="showLoader" class="d-flex justify-content-center mb-3">
       <b-spinner label="Loading..."></b-spinner>
     </div>
+
+    <line-chart v-if="showChart" :details="cityDetails" />
 
   </b-container>
 </template>
@@ -34,10 +36,12 @@
 const axios = require('axios')
 import WeatherCard from './WeatherCard.vue'
 import CityDetails from './CityDetails.vue'
+import LineChart from './Chart.vue'
 export default {
   components: {
     WeatherCard,
-    CityDetails
+    CityDetails,
+    LineChart
   },
   data() {
     return {
@@ -45,13 +49,21 @@ export default {
       text: null,
       showDismissibleAlert: false,
       cityDetails: null,
-      showLoader: false
+      showLoader: false,
+      showChart: false,
+      showTemperature: false
     }
   },
   methods: {
+    showHideTemperatureOrChart () {
+      this.showChart = true
+      this.showTemperature = false
+    },
     search() {
       this.showLoader = true
       this.cityDetails = null
+      this.showChart = false
+      this.showTemperature = false
       axios
         .get('https://api.openweathermap.org/data/2.5/weather', {
           params: {
@@ -71,7 +83,18 @@ export default {
           this.showLoader = false
         })
     },
+    getTemperatureChart (value) {
+      this.cityDetails = null
+      this.showChart = true
+      this.showTemperature = false
+      this.getDetails(value)
+    },
     getCityDetails(value) {
+      this.showChart = false
+      this.showTemperature = true
+      this.getDetails(value)
+    },
+    getDetails (value) {
       this.showLoader = true
       axios
         .get('https://api.openweathermap.org/data/2.5/forecast', {
