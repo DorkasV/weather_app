@@ -60,8 +60,10 @@ export default {
   ],
   watch: {
     details() {
-      const day = item => moment(item.dt_txt).format('YYYY-MM-DD')
-      this.results = _.groupBy(this.details.list, day)
+      if (this.details) {
+        const day = item => moment(item.dt_txt).format('YYYY-MM-DD')
+        this.results = _.groupBy(this.details.list, day)
+      }
     }
   },
   methods: {
