@@ -3,7 +3,7 @@
     <b-row align-h="center">
       <b-col lg="4">
         <b-input-group>
-          <b-form-input v-model="text" placeholder="Enter city name"></b-form-input>
+          <b-form-input v-model="text" placeholder="Enter city name" @keyup.enter="search"></b-form-input>
           <b-input-group-append>
             <b-button variant="info" @click="search">Search</b-button>
           </b-input-group-append>
