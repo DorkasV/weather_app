@@ -1,26 +1,24 @@
 <template>
-  <div class="container-fluid">
-    <b-container>
-      <b-row align-h="center">
-        <b-col cols="4">
-          <b-input-group>
-            <b-form-input v-model="text" placeholder="Enter city name"></b-form-input>
-            <b-input-group-append>
-              <b-button variant="info" @click="search">Search</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-col>
-      </b-row>
+  <b-container>
+    <b-row align-h="center">
+      <b-col lg="4">
+        <b-input-group>
+          <b-form-input v-model="text" placeholder="Enter city name"></b-form-input>
+          <b-input-group-append>
+            <b-button variant="info" @click="search">Search</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </b-col>
+    </b-row>
+    
+    <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+      City not found!
+    </b-alert>
       
-      <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-        City not found!
-      </b-alert>
-        
-      <weather-card :info="info" @cityDetails="getCityDetails" />
-      <city-details />
+    <weather-card :info="info" @cityDetails="getCityDetails" />
+    <city-details :details="cityDetails" />
 
-    </b-container>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -42,6 +40,7 @@ export default {
   },
   methods: {
     search () {
+      this.cityDetails = null
       axios
         .get('https://api.openweathermap.org/data/2.5/weather', {
           params: {
@@ -75,3 +74,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.pointer{
+  cursor: pointer;
+}
+</style>
