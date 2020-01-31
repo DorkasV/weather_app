@@ -7,18 +7,18 @@
       >
         <b-card-title>
           <img alt="Flag" :src="getWeatherIconUrl(info.weather[0].icon)">
-          <span id="city" class="pointer" @click="$emit('cityDetails', info.id)">{{(info||{}).name}}, {{((info||{}).sys||{}).country}} </span>
+          <span id="city" class="pointer" @click="$emit('cityDetails', info.id)">{{info.name}}, {{info.sys.country}} </span>
           <b-tooltip target="city">Click for extended forecast</b-tooltip>
           <img alt="Flag" :src="getImageUrl(info.sys.country)">
-          {{((info||{}).weather||{})[0].description}}
+          {{info.weather[0].description}}
         </b-card-title>
         <b-card-text>
-          <b-badge id="temperature" variant="info">{{`${((info||{}).main||{}).temp} &#176;C`}}</b-badge>
-          <b-tooltip target="temperature">Feels like: {{((info||{}).main||{}).feels_like}}</b-tooltip>
-          {{`temperature from ${((info||{}).main||{}).temp_min} to ${((info||{}).main||{}).temp_max} &#176;C, 
-          wind ${((info||{}).wind||{}).speed} m/s. clouds ${((info||{}).clouds||{}).all} %`}}
+          <b-badge id="temperature" variant="info">{{`${info.main.temp} &#176;C`}}</b-badge>
+          <b-tooltip target="temperature">Feels like: {{info.main.feels_like}}</b-tooltip>
+          {{`temperature from ${info.main.temp_min} to ${info.main.temp_max} &#176;C, 
+          wind ${info.wind.speed} m/s. clouds ${info.clouds.all} %`}}
           <br>
-          Geo coords {{`[${((info||{}).coord||{}).lon}, ${((info||{}).coord||{}).lat}]`}}
+          Geo coords {{`[${info.coord.lon}, ${info.coord.lat}]`}}
         </b-card-text>
       </b-card>
     </b-col>
