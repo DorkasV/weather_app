@@ -19,7 +19,7 @@
                 <b-col lg="8">
                   <b-row>
                     <b-col md="2">
-                      <b-badge variant="warning">{{Math.round(item.main.temp)}} &#176;C</b-badge>
+                      <b-badge :variant="temperature(item.main.temp)">{{Math.round(item.main.temp)}} &#176;C</b-badge>
                     </b-col>
                     <b-col md="10">
                       {{item.weather[0].description}}
@@ -41,7 +41,6 @@
           </b-list-group>
         </b-card>
       </b-col>
-      {{item}}
     </b-row>
   </div>
 </template>
@@ -67,11 +66,16 @@ export default {
     }
   },
   methods: {
-    getWeatherIconUrl(value) {
+    getWeatherIconUrl (value) {
       return `http://openweathermap.org/img/w/${value}.png`
     },
-    timeFormat(value) {
+    timeFormat (value) {
       return moment(value).format('HH:mm')
+    },
+    temperature (value) {
+      if (value < 0)
+        return 'info'
+      return 'warning'
     }
   }
 }
