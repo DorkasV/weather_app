@@ -9,26 +9,26 @@
           <b-list-group flush v-for="(item, indexx) in itemm" :key="indexx">
             <b-list-group-item>
               <b-row>
-                <b-col xs="4" class="align-left">
+                <b-col cols="3">
                   {{timeFormat(item.dt_txt)}}
                   <img alt="Flag" :src="getWeatherIconUrl(item.weather[0].icon)">
                 </b-col>
-                <b-col xs="8">
+                <b-col cols="9">
                   <b-row>
-                    <b-col xs="2">
+                    <b-col cols="2">
                       <b-badge :variant="temperature(item.main.temp)">{{Math.round(item.main.temp)}} &#176;C</b-badge>
                     </b-col>
-                    <b-col xs="10">
+                    <b-col cols="10">
                       {{item.weather[0].description}}
                     </b-col>
                   </b-row>
                   <b-row>
-                    <b-col offset-xs="2">
+                    <b-col offset="2">
                       {{item.wind.speed}} m/s
                     </b-col>
                   </b-row>
                   <b-row>
-                    <b-col offset-xs="2">
+                    <b-col offset="2">
                       clouds: {{item.clouds.all}} %
                     </b-col>
                   </b-row>
