@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row v-for="(itemm, key, index) in results" :key="index" align-h="center">
+    <b-row v-for="(itemm, key, index) in cityDetails" :key="index" align-h="center">
       <b-col lg="6">
         <b-card tag="article" class="mb-2">
           <b-card-title>
@@ -54,15 +54,13 @@ export default {
   props: [
     'details'
   ],
-  watch: {
-    details() {
+  computed: {
+    cityDetails(){
       if (this.details) {
         const day = item => moment(item.dt_txt).format('YYYY-MM-DD')
-        this.results = _.groupBy(this.details.list, day)
+        return _.groupBy(this.details.list, day)
       }
-      else {
-        this.results = null
-      }
+      return null
     }
   },
   methods: {

@@ -84,15 +84,18 @@ export default {
         })
     },
     getTemperatureChart (value) {
-      this.cityDetails = null
       this.showChart = true
       this.showTemperature = false
-      this.getDetails(value)
+      if(!this.cityDetails){
+        this.getDetails(value)
+      }
     },
     getCityDetails(value) {
       this.showChart = false
       this.showTemperature = true
-      this.getDetails(value)
+      if(!this.cityDetails){
+        this.getDetails(value)
+      }
     },
     getDetails (value) {
       this.showLoader = true
